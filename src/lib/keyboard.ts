@@ -568,7 +568,7 @@ export const keyboardLayout: Key[][] = [
       displayText: 'M',
       icon: false,
       shift: 'M',
-      displayShift: true,
+      displayShift: false,
       displayAltGraph: false,
     },
     {
