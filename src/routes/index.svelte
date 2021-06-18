@@ -1,8 +1,8 @@
 <script lang="ts">
   import NormalKey from '$lib/components/NormalKey.svelte'
   import SpaceKey from '$lib/components/SpaceKey.svelte'
-  import { keyboardLayout } from '$lib/keyboard'
-  import { findKeyInList, isKeyDown, isLocationKey, isNormalKey } from '$lib/utils'
+  import { keyboardLayout, KeyLength } from '$lib/keyboard'
+  import { findKeyInList, isFunctionKey, isKeyDown, isLocationKey, isMediumKey, isNormalKey } from '$lib/utils'
 
   let allKeys = keyboardLayout
 
@@ -32,22 +32,26 @@
 
 <svelte:window on:keydown={handleKeyDown} on:keyup={handleKeyUp} />
 
-<div class="flex flex-col space-y-1 justify-center">
-  {#each allKeys as keyRow, rowNumber}
-    <div class="flex" class:justify-end={rowNumber === 6}>
-      {#each keyRow as key}
-        <span class:flex-1={rowNumber !== 6} class="flex">
-          {#if isNormalKey(key)}
-            <NormalKey {key} />
-          {:else if key.normal === ' '}
-            <SpaceKey {key} />
-          {:else}
-            <span class:material-icons={key.icon}>
-              {key.displayText}
-            </span>
-          {/if}</span
-        >
-      {/each}
-    </div>
-  {/each}
+<div class="space-y-20">
+  <h1 class="text-center text-4xl text-white">Nabeel's almost accurate keyboard</h1>
+
+  <div class="flex flex-col space-y-1 justify-center">
+    {#each allKeys as keyRow, rowNumber}
+      <div class="flex items-end {rowNumber === 6 ? 'justify-end' : 'justify-between'}">
+        {#each keyRow as key}
+          <span class:flex-1={rowNumber !== 6} class="flex">
+            {#if isNormalKey(key)}
+              <NormalKey {key} length={KeyLength.Normal} />
+            {:else if key.normal === ' '}
+              <SpaceKey {key} />
+            {:else if isMediumKey(key)}
+              <NormalKey {key} length={KeyLength.Medium} />
+            {:else}
+              <NormalKey {key} length={KeyLength.Long} />
+            {/if}</span
+          >
+        {/each}
+      </div>
+    {/each}
+  </div>
 </div>

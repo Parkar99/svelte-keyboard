@@ -1,3 +1,9 @@
+export enum KeyLength {
+  Normal,
+  Medium,
+  Long,
+}
+
 export type Key = {
   normal: Keys
   shift?: Keys

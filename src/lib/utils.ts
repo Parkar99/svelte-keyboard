@@ -17,15 +17,15 @@ export const findKeyInList = (keyList: Key[][], key: string, location?: number):
 }
 
 export const isNormalKey = (e: Key) =>
-  e.normal !== 'Shift' &&
-  e.normal !== 'Control' &&
-  e.location !== 1 &&
-  e.normal !== 'Backspace' &&
-  e.normal !== 'Enter' &&
-  !e.normal.includes('Arrow') &&
-  !e.normal.includes('Page') &&
-  e.normal !== ' ' &&
-  e.normal !== 'Meta' &&
-  e.normal !== 'Alt' &&
-  !e.normal.match(/^F\d+/) &&
-  e.normal !== 'Tab'
+  (e.normal === 'Control' && e.location === 2) ||
+  (e.normal === 'Shift' && e.location === 1) ||
+  (e.normal !== 'Shift' &&
+    e.normal !== 'Control' &&
+    e.normal !== 'Backspace' &&
+    e.normal !== 'Enter' &&
+    e.normal !== ' ' &&
+    e.normal !== 'Tab')
+
+export const isMediumKey = (e: Key) => e.normal === 'Tab' || e.normal === 'Backspace'
+
+export const isFunctionKey = (e: Key) => e.normal.match(/^F\d+/)
